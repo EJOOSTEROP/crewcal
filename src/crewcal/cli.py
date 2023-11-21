@@ -123,7 +123,7 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
         text="Extracting schedule, saving to iCalendar format.", spinner="dots"
     ) if not to_json else Halo(
         text="Extracting schedule, saving to crewcal json format.", spinner="dots"
-    ):
+    ) as spinner:
         sched = (
             OpenAISchedule(
                 schedule_path=str(source_path), to_icalendar_file=str(out_path)
@@ -133,8 +133,8 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
                 schedule_path=str(source_path), to_json_file=str(out_path)
             )
         )
+        spinner.info(f"Extracted schedule saved to {out_path}.")
 
-    click.echo(f"Extracted schedule saved to {out_path}.")
 
     del sched
 
