@@ -64,8 +64,8 @@ def convert(json: str, ical: str, overwrite: bool) -> int:
         )
         json_path = json_path_modified
 
-    sched = schedule.Schedule.from_json(json_path)
-    sched.to_icalendar_file(ical_path)
+    sched = schedule.Schedule.from_json(str(json_path))
+    sched.to_icalendar_file(str(ical_path))
 
     return 0
 
@@ -125,9 +125,13 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
         text="Extracting schedule, saving to crewcal json format.", spinner="dots"
     ):
         sched = (
-            OpenAISchedule(schedule_path=source_path, to_icalendar_file=out_path)
+            OpenAISchedule(
+                schedule_path=str(source_path), to_icalendar_file=str(out_path)
+            )
             if not to_json
-            else OpenAISchedule(schedule_path=source_path, to_json_file=out_path)
+            else OpenAISchedule(
+                schedule_path=str(source_path), to_json_file=str(out_path)
+            )
         )
 
     click.echo(f"Extracted schedule saved to {out_path}.")

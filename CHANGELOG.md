@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 <!-- insertion marker -->
 ## [Unreleased]
 
+## [0.8.1]
+
+### Fixed
+- Error with reading and saving files.
+
 ## [0.8.0]
 
 ### Added

@@ -56,9 +56,9 @@ class OpenAISchedule:
         - sched = OpenAISchedule("schedule.pdf", to_icalendar_file="schedule.ics") - to extract data from a PDF file and save it to a JSON file
 
         Parameters:
-            schedule_path (Path): The path to the schedule PDF file.
-            to_json_file (Path, optional): The path to the file where the schedule will be extracted.
-            to_icalendar_file (Path, optional): The path to the file where the iCalendar representation of the schedule will be saved.
+            schedule_path (str): The path to the schedule PDF file.
+            to_json_file (str, optional): The path to the file where the schedule will be extracted.
+            to_icalendar_file (str, optional): The path to the file where the iCalendar representation of the schedule will be saved.
 
         Returns:
             None
@@ -77,7 +77,7 @@ class OpenAISchedule:
         """Uses LLM to extract event data from a schedule PDF file and optionally saves it to a JSON file.
 
         Parameters:
-            to_file (Path, optional): The path to the output JSON file. If not provided, the extracted data will not be saved.
+            to_file (str, optional): The path to the output JSON file. If not provided, the extracted data will not be saved.
 
         Returns:
             None
@@ -105,7 +105,7 @@ class OpenAISchedule:
                 | JsonKeyOutputFunctionsParser(key_name="events")
             )
 
-            logging.WARNING(
+            logging.warning(
                 "WARNING - This script costs 0.75 US cents per call in OpenAI API costs."
             )
 
@@ -118,13 +118,13 @@ class OpenAISchedule:
         """Reads the contents of a schedule PDF file and returns as a document for an LLM input.
 
         Args:
-            filepath (pathlib.Path): The path to the PDF file.
+            filepath (str): The path to the PDF file.
 
         Returns:
             str: The concatenated text of all pages in the PDF file.
         """
         if filepath:
-            loader = PyPDFLoader(filepath)
+            loader = PyPDFLoader(str(filepath))
             documents = loader.load()
             full_sched_doc = "".join([doc.page_content for doc in documents])
         else:
@@ -156,7 +156,7 @@ class OpenAISchedule:
         """Initializes a new OpenAISchedule object from a JSON file.
 
         Args:
-            filepath (Path): The path to the JSON file.
+            filepath (str): The path to the JSON file.
 
         Returns:
             OpenAISchedule: The initialized OpenAISchedule object.
