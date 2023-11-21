@@ -5,7 +5,12 @@
 <!-- SHIELDS HEADER -->
 <div align="center">
 
-[![Current Release][release-shield]][release-url] [![Contributors][contributors-shield]][contributors-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url] [![Issues][issues-shield]][issues-url] [![MIT License][license-shield]][license-url] [![LinkedIn][linkedin-shield]][linkedin-url] [![PyPI - Python Version][pypi-python-shield]][https://pypi.org/project/crewcal/] [![PyPi - Package Version][pypi-version-shield]][https://pypi.org/project/crewcal/] [![PyPi - License][pypi-license-shield]][license-url]
+[![Current Release][release-shield]][release-url] [![Contributors][contributors-shield]][contributors-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url] [![Issues][issues-shield]][issues-url] [![MIT License][license-shield]][license-url] [![LinkedIn][linkedin-shield]][linkedin-url]
+
+![PyPI - Python Version][pypi-python-shield]
+![PyPi - Package Version][pypi-version-shield]
+
+[![PyPi - License][pypi-license-shield]][license-url]
 
 [release-shield]:https://img.shields.io/github/release/EJOOSTEROP/crewcal.svg
 [release-url]:https://github.com/EJOOSTEROP/crewcal/releases
@@ -43,7 +48,7 @@
 <h3 align="center">crewcal</h3>
 
   <p align="center">
-    Convert an airline crew schedule pdf into iCalendar format.
+    Convert an airline crew schedule pdf into iCalendar format using a machine learning Large Language Model.
     <br />
     <a href="https://github.com/EJOOSTEROP/crewcal"><strong>Explore the docs »</strong></a>
     <br />
@@ -100,7 +105,7 @@
 
 <div>
 
-  Convert an airline crew schedule pdf into iCalendar format. An LLM (Large Language Model, specifically OpenAI's gpt-3.5-turbo) is used to extract the schedule information. iCalender files are recognized by most calendar systems (iOS, Android, Google, ++) and will create the flights on your phone/device calendar.
+  Convert an airline crew schedule pdf into iCalendar format using a machine learning Large Language Model. An LLM (Large Language Model, specifically OpenAI's gpt-3.5-turbo) is used to extract the schedule information. iCalender files are recognized by most calendar systems (iOS, Android, Google, ++) and will create the flights on your phone/device calendar.
 
   The PDF schedule does not need to follow a very prescribed structured format.
 
