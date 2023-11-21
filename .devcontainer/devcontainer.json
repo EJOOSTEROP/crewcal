@@ -1,0 +1,69 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "crewcal",
+
+	"build": {
+		"dockerfile": "./dockerfile",
+		"context": "."
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils:2": {
+			"installZsh": true,
+			"installOhMyZsh": true,
+			"installOhMyZshConfig": true,
+			"upgradePackages": true,
+			"username": "vscode",
+			"userUid": "1001",
+			"userGid": "automatic"
+		},
+		"ghcr.io/devcontainers-contrib/features/poetry:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/nox:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/pre-commit:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/mypy:2": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainers-contrib/features/copier:7": {
+			"version": "latest"
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	"postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && git config --global user.email 'ni7h4txi@duck.com' && git config --global user.name 'Erik Oosterop'",
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "pip3 install --user -r requirements.txt",
+	"postCreateCommand": "sudo chmod -R a+xwr ./ && git init --initial-branch=main && git config --global --add safe.directory ${containerWorkspaceFolder} && poetry install && pre-commit install" ,
+	// "postCreateCommand": "poetry install" ,
+
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"Gruntfuggly.todo-tree",
+				"GitHub.vscode-pull-request-github",
+				"ms-python.black-formatter",
+				"ms-python.flake8",
+				"ms-python.isort",
+				"ms-python.vscode-pylance",
+				"njpwerner.autodocstring"
+			]
+		}
+	},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+	"remoteUser": "vscode"
+
+}

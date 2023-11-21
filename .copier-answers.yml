@@ -1,0 +1,18 @@
+_commit: v0.7.3
+_src_path: gh:EJOOSTEROP/copier-python.git
+annotations_ignore_fully_untyped: true
+author_email: ni7h4txi@duck.com
+author_linkedin_url: https://linkedin.com/in/erik-oosterop-9505a21
+author_name: Erik Oosterop
+customized_install: true
+include_docker: false
+package_name: crewcal
+package_version: 0.0.1
+project_description: Convert an airline crew schedule pdf into iCalendar format.
+project_name: crewcal
+pypi_url: https://pypi.org/project/crewcal/
+repository_branch: main
+repository_namesepace: EJOOSTEROP
+repository_package: crewcal
+repository_url: https://github.com/EJOOSTEROP/crewcal
+setup_mypy: false

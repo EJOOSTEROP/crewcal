@@ -1,0 +1,24 @@
+[flake8]
+select = ANN,B,B9,BLK,D,DAR,E,F,I,S,W
+ignore=E203,E501,W503
+
+exclude =
+    .git
+    ,.nox
+    ,build
+    ,dist
+
+max-line-length = 120
+max-complexity = 10
+
+application-import-names = tests, crewcal
+
+import-order-style = google
+docstring-convention = google
+
+per-file-ignores = tests/*:S101
+
+# add ',C' to 'select=' in order to show the copyright warnings.
+copyright-check = True
+copyright-min-file-size = 50
+copyright-regexp=Copyright \(c\) Erik Oosterop and others. All Rights Reserved

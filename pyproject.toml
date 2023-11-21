@@ -1,0 +1,145 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+line_length = 120
+not_skip = "__init__.py"
+multi_line_output = 3
+force_single_line = false
+balanced_wrapping = true
+default_section = "THIRDPARTY"
+known_first_party = "crewcal"
+include_trailing_comma = true
+skip = [".gitignore", ".dockerignore"]
+
+[tool.mypy]
+disallow_incomplete_defs = true
+
+[tool.poetry]
+name = "crewcal"
+version = "0.8.0"
+description = "Convert an airline crew schedule pdf into iCalendar format."
+authors = ["Erik Oosterop <ni7h4txi@duck.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/EJOOSTEROP/crewcal"
+repository = "https://github.com/EJOOSTEROP/crewcal"
+documentation = "https://github.com/EJOOSTEROP/crewcal"
+keywords = ["x", "y", "z"]
+# packages = [ { include = "crewcal", from = "src" } ]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.5.1"
+ics = "^0.7.2"
+pendulum = "^2.1.2"
+langchain = "^0.0.337"
+python-dotenv = "^1.0.0"
+openai = "^1.3.3"
+pypdf = "^3.17.1"
+click = "^8.1.7"
+halo = "^0.0.31"
+
+[tool.poetry.group.dev.dependencies]
+pytest-cov = "^4.1.0"
+pytest = "^7.4.0"
+requests-mock = "^1.11.0"
+toml-sort = "^0.23.1"
+
+[tool.poetry.scripts]
+wip = "crewcal.wip:main"
+crewcal = "crewcal.cli:cli"
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "src"
+]
+markers = [
+  "expensive: uses API key and likely paid or at least limited resources (deselect with '-m \"not expensive\"')",
+  "serial"
+]
+
+[tool.ruff]
+include = ["*.py", "*.pyi", "**/pyproject.toml"]
+line-length = 120
+select = [
+    # https://beta.ruff.rs/docs/rules/
+  "A", # prevent using keywords that clobber python builtins
+  "ANN", # type annotation
+  "ARG", # unused arguments
+  "B", # bugbear: security warnings
+  # "BLE",  # blind exceptions
+  "C",
+  # "COM",  # commas
+  "C4", # comprehension
+  "C90", # McCabe complexity
+  "D", # pydocstyle
+  # "DAR", # darglint, but does not seem to be implemented at the moment
+  "DTZ", # date timezone
+  "E", # pycodestyle
+  "EM", # error messages
+  "ERA", # eradicate
+  "EXE", # executables
+  "F", # pyflakes
+  "FLY", # f-strings
+  # "G",  # logging format (no f-string)
+  "I", # isort
+  "ICN", # import conventions
+  "INT", # gettext
+  "ISC", # implicit string concatenation
+  "N", # pep8 naming
+  "PERF", # performance lint
+  "PIE", #
+  "PT", # pytest style
+  "PTH", # use pathlib
+  "Q", # quotes
+  "RET", # return values
+  "RSE", # error parenthesis
+  "RUF", # ruff rules
+  "S", # Bandit
+  "SIM", # simplify
+  "TCH", # type checking
+  # "TD",  # TODO
+  "TID", # tidy imports
+  "TRY", # tryceratops
+  "T20", # print statement
+  "UP", # alert you when better syntax is available in your python version
+  "W", # pycodestyle warnings
+  "RUF" # the ruff developer's own rules
+]
+ignore = [
+  "E203", # comments allowed
+  "E501",
+  "ANN101" # type annotation for self
+]
+fix = true
+
+[tool.ruff.flake8-annotations]
+ignore-fully-untyped = true
+
+[tool.ruff.per-file-ignores]
+"tests/**/*.py" = [
+  # at least these three should be fine in tests:
+  "S101", # asserts allowed in tests...
+  "ANN", # TODO: do not care about type annotations in tests for now
+  "ARG", # Unused function args -> fixtures nevertheless are functionally relevant...
+  "FBT", # Don't care about booleans as positional arguments in tests, e.g. via @pytest.mark.parametrize()
+  # The below are debateable
+  "PLR2004", # Magic value used in comparison, ...
+  "S311", # Standard pseudo-random generators are not suitable for cryptographic purposes
+  "D", # no pydocstyle
+  "N" # Argument, function to lowercase
+]
+"noxfile.py" = [
+  "ANN",
+  "D"
+]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.tomlsort]
+all = true
+in_place = true
+trailing_comma_inline_array = true
