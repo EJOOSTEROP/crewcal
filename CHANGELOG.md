@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 <!-- insertion marker -->
 ## [Unreleased]
 
+### Changed
+- Adding extract completed message using Halo (spinner)
+
 ## [0.8.1]
 
 ### Fixed

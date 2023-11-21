@@ -135,7 +135,6 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
         )
         spinner.info(f"Extracted schedule saved to {out_path}.")
 
-
     del sched
 
     return 0
