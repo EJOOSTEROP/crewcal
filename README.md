@@ -4,6 +4,7 @@
 
 <!-- SHIELDS HEADER -->
 <div align="center">
+
 [![Current Release][release-shield]][release-url] [![Contributors][contributors-shield]][contributors-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url] [![Issues][issues-shield]][issues-url] [![MIT License][license-shield]][license-url] [![LinkedIn][linkedin-shield]][linkedin-url] [![PyPI - Python Version][pypi-python-shield]][https://pypi.org/project/crewcal/] [![PyPi - Package Version][pypi-version-shield]][https://pypi.org/project/crewcal/] [![PyPi - License][pypi-license-shield]][license-url]
 
 [release-shield]:https://img.shields.io/github/release/EJOOSTEROP/crewcal.svg
