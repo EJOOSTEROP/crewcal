@@ -66,7 +66,6 @@ def convert(json: str, ical: str, overwrite: bool) -> int:
 
     sched = schedule.Schedule.from_json(str(json_path))
     sched.to_icalendar_file(str(ical_path))
-    del sched
 
     return 0
 
@@ -125,7 +124,7 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
     ) if not to_json else Halo(
         text="Extracting schedule, saving to crewcal json format.", spinner="dots"
     ) as spinner:
-        sched = (
+        (
             OpenAISchedule(
                 schedule_path=str(source_path), to_icalendar_file=str(out_path)
             )
@@ -135,7 +134,6 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
             )
         )
         spinner.info(f"Extracted schedule saved to {out_path}.")
-        del sched
 
     return 0
 
