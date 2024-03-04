@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 <!-- insertion marker -->
 ## [Unreleased]
 
-- Consider downgrading Python requirement (at least to 3.10, but I dont know how low it can go)
+- Consider downgrading Python requirement (at least to 3.10, but I dont know how low it can gowhere)
 
 ### Changed
 - Adding extract completed message using Halo (spinner)
