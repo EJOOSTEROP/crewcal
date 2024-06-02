@@ -14,7 +14,7 @@ def main():
 
     logging.warning(sched.to_icalendar().serialize())
 
-    sched.to_icalendar_file("schedule3.ics")
+    sched.to_icalendar_file("dien.ics")
 
     logging.warning(sched.json_dumps())
 

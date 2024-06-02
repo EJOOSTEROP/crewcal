@@ -3,6 +3,7 @@
 The schedule is a list of events, each of which contains the details of a set of flight.
 
 """
+
 import json
 import logging
 from pathlib import Path
@@ -104,6 +105,7 @@ class Schedule(BaseModel):
             )
             for flight in self.events
         ]
+
         calendar.events.update(events)
 
         return calendar
