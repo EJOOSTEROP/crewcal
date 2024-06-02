@@ -101,15 +101,16 @@
   <a href="https://github.com/EJOOSTEROP/crewcal">
     <img src="https://github.com/EJOOSTEROP/crewcal/blob/main/etc/intro_image.jpg?raw=true" alt="intro_image" width="75%" height="75%">
   </a>
+  <br>
 </div>
 
 <div>
-
+  <br>
   Convert an airline crew schedule pdf into iCalendar format using a machine learning Large Language Model. An LLM (Large Language Model, specifically OpenAI's gpt-3.5-turbo) is used to extract the schedule information. iCalender files are recognized by most calendar systems (iOS, Android, Google, ++) and will create the flights on your phone/device calendar.
 
   The PDF schedule does not need to follow a very prescribed structured format.
 
-  Development performed mostly using AIMS eCrew pdf schedules.
+  Development performed mostly using AIMS eCrew <a href="https://github.com/EJOOSTEROP/crewcal/blob/main/etc/schedule_sample.png?raw=true">pdf schedules</a>. It may work on other systems' schedules. Feel free to <a href="#roadmap">suggest</a> other systems.
 
 </div>
 
@@ -176,7 +177,7 @@ The resulting .ics file can be read by most calendar software.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] None (feel free to suggest)
+- [ ] Add support schedules for systems in addition to AIMS. I would be happy to look at suggestions, especially if you can provide sample schedules. Create a new <a href="https://github.com/EJOOSTEROP/crewcal/issues">issue</a>.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
