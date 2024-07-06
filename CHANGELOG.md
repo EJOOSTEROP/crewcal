@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Consider downgrading Python requirement (at least to 3.10, but I dont know how low it can gowhere)
 
+## [0.8.3]
+
+### Fixed
+- +1 for next date now no longer causing json issues. Stopped working with the same OpenAI model after previous fix.
+
 ## [0.8.2]
 
 ### Fixed

@@ -19,7 +19,7 @@ Each event contains the following items:
 - Destination airport name
 - Destination timezone
 - Arrival date. A '+1' means the next day.
-- Arrival time, the last occurrence of a time for each day. A '+1' means the next day.
+- Arrival time, the last occurrence of a time for each day. A '+1' means the next day. Only capture HH:mm format.
 - List of crew members
 - A list of all times found.
 - List of all airport codes.
