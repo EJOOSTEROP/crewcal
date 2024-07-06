@@ -5,6 +5,7 @@ to extract flight details in a structured format.
 
 About 0.75 US cents per call in OpenAI API costs.
 """
+
 import json
 import logging
 import os
@@ -85,6 +86,7 @@ class OpenAISchedule:
         full_sched_doc = self.read_schedule_pdf(self.schedule_path)
 
         if full_sched_doc:
+            # TODO: Can use gpt-4o instead; but on paper 10x as expensive
             model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
             prompt = ChatPromptTemplate.from_messages(
                 [("system", template_flight_schedule), ("human", "{input}")]
@@ -106,10 +108,17 @@ class OpenAISchedule:
             )
 
             logging.warning(
-                "WARNING - This script costs 0.75 US cents per call in OpenAI API costs."
+                "WARNING - This script costs ~0.75 US cents per call in OpenAI API costs."
             )
 
-            self.extracted_schedule = extraction_chain.invoke({"input": full_sched_doc})
+            from langchain.callbacks import get_openai_callback
+
+            with get_openai_callback() as cb:
+                self.extracted_schedule = extraction_chain.invoke(
+                    {"input": full_sched_doc}
+                )
+
+            logging.warning("Actual OpenAI API cost in USD:" + str(cb.total_cost))
 
         if to_file:
             self.write_json(to_file)
