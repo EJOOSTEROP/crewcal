@@ -23,7 +23,10 @@ from crewcal.llm_prompts import template_flight_schedule
 from crewcal.schedule import Schedule
 
 _ = load_dotenv(find_dotenv())
-openai.api_key = os.environ["OPENAI_API_KEY"]
+try:
+    openai.api_key = os.environ["OPENAI_API_KEY"]
+except KeyError:
+    logging.warning("WARNING - Environment variable OPENAI_API_KEY should be set.")
 
 
 class OpenAISchedule:
@@ -34,6 +37,7 @@ class OpenAISchedule:
 
     schedule_path: str
     extracted_schedule: str = ""
+    llm_model_name: str = "gpt-3.5-turbo"
 
     def __init__(
         self, schedule_path: str, to_json_file: str = "", to_icalendar_file: str = ""
@@ -86,8 +90,8 @@ class OpenAISchedule:
         full_sched_doc = self.read_schedule_pdf(self.schedule_path)
 
         if full_sched_doc:
-            # TODO: Can use gpt-4o instead; but on paper 10x as expensive
-            model = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+            # TODO: Can use gpt-4o instead; but app. 10x as expensive
+            model = ChatOpenAI(model_name=self.llm_model_name, temperature=0)
             prompt = ChatPromptTemplate.from_messages(
                 [("system", template_flight_schedule), ("human", "{input}")]
             )
@@ -108,7 +112,7 @@ class OpenAISchedule:
             )
 
             logging.warning(
-                "WARNING - This script costs ~0.75 US cents per call in OpenAI API costs."
+                "WARNING - This script costs ~0.75 US cents per call in OpenAI API costs (GPT-3.5)."
             )
 
             from langchain.callbacks import get_openai_callback

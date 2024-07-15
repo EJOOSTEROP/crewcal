@@ -9,8 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Consider downgrading Python requirement (at least to 3.10, but I dont know how low it can gowhere)
 
+## [0.8.4]
+
 ### Added
-- Show actual cost - as calculated by langchain - after call. Note: does not seem to work for gpt-4o
+- Show actual cost - as calculated by langchain - after call. Note: does not seem to work for gpt-4o.
+
+### Changed
+- Catch error and show warning in log when command is run without OPENAI_API_KEY being set.
 
 ## [0.8.3]
 
