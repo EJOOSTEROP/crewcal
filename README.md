@@ -48,7 +48,7 @@
 <h3 align="center">crewcal</h3>
 
   <p align="center">
-    Convert an airline crew schedule pdf into iCalendar format using a machine learning Large Language Model.
+    Convert an airline crew schedule pdf into iCalendar format using a Large Language Model.
     <br />
     <a href="https://github.com/EJOOSTEROP/crewcal"><strong>Explore the docs »</strong></a>
     <br />
@@ -106,7 +106,7 @@
 
 <div>
   <br>
-  Convert an airline crew schedule pdf into iCalendar format using a machine learning Large Language Model. An LLM (Large Language Model, specifically OpenAI's gpt-3.5-turbo) is used to extract the schedule information. iCalender files are recognized by most calendar systems (iOS, Android, Google, ++) and will create the flights on your phone/device calendar.
+  Convert an airline crew schedule pdf into iCalendar format using a Large Language Model. OpenAI's gpt-3.5-turbo is used to extract the schedule information. iCalender files are recognized by most calendar systems (iOS, Android, Google, ++) and will create the flights on your phone/device calendar.
 
   The PDF schedule does not need to follow a very prescribed structured format.
 
@@ -139,7 +139,7 @@ Make this available as an environment variable:
 ```shell
 export OPENAI_API_KEY=YOUR_KEY
 ```
-Alternatively specify the API Key in a .env file.
+Alternatively specify the API key in a .env file.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Installation
@@ -177,7 +177,7 @@ The resulting .ics file can be read by most calendar software.
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Add support schedules for systems in addition to AIMS. I would be happy to look at suggestions, especially if you can provide sample schedules. Create a new <a href="https://github.com/EJOOSTEROP/crewcal/issues">issue</a>.
+- [ ] Add support for schedules from systems in addition to AIMS. I would be happy to look at suggestions, especially if you can provide sample schedules. Create a new <a href="https://github.com/EJOOSTEROP/crewcal/issues">issue</a> to initiate a new request.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
