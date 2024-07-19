@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Consider downgrading Python requirement (at least to 3.10, but I dont know how low it can gowhere)
 
 ## [0.8.5]
+
+### Added
+- Hotel information
+
 ### Changed
 - Upgrade LLM to GPT 4o mini
 

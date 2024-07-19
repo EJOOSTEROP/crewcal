@@ -33,6 +33,7 @@ class Event(BaseModel):
     crew_list: List[str]
     list_times: List[str]
     list_airport_codes: List[str]
+    hotel_information: str
 
     def list_airport_pairs(self):
         """Generate a formatted string of airport pairs."""
@@ -55,6 +56,7 @@ class Event(BaseModel):
                 self.list_airport_pairs(),
                 *self.crew_list,
                 f"\nFlight ends in {self.destination_timezone[-1]} timezone.",
+                self.hotel_information,
             ]
         )
 

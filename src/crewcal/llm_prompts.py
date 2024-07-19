@@ -5,7 +5,7 @@ Your task is to convert the information I will provide into a list of calendar e
 
 The information contains a list of duties for an airline crew member. Duties consist of one or more flights. You will represent each duty as a calendar event.
 
-Ignore the section with Hotel Information.
+The section with Hotel Information contains no new events. Instead it contains the hotel at destination for some of the flights.
 
 Each event contains the following items:
 - Departure date in yyyy-mm-dd format
@@ -23,6 +23,7 @@ Each event contains the following items:
 - List of crew members
 - A list of all times found. Only capture HH:mm format.
 - List of all airport codes.
+- Hotel information at destination. Obtain this from the document section 'Hotel Information'. It includes the name, full address and phone number of the hotel at destination. For some flights this does not exist. In that case keep this part empty.
 
 Always include all items in your output even if they are empty.
 """
