@@ -106,7 +106,7 @@
 
 <div>
   <br>
-  Convert an airline crew schedule pdf into iCalendar format using a Large Language Model. OpenAI's gpt-3.5-turbo is used to extract the schedule information. iCalender files are recognized by most calendar systems (iOS, Android, Google, ++) and will create the flights on your phone/device calendar.
+  Convert an airline crew schedule pdf into iCalendar format using a Large Language Model. OpenAI's gpt-4o-mini is used to extract the schedule information. iCalender files are recognized by most calendar systems (iOS, Android, Google, ++) and will create the flights on your phone/device calendar.
 
   The PDF schedule does not need to follow a very prescribed structured format.
 
