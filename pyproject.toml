@@ -18,7 +18,7 @@ disallow_incomplete_defs = true
 
 [tool.poetry]
 name = "crewcal"
-version = "0.8.4"
+version = "0.8.5"
 description = "Convert an airline crew schedule pdf into iCalendar format."
 authors = ["Erik Oosterop <ni7h4txi@duck.com>"]
 license = "MIT"

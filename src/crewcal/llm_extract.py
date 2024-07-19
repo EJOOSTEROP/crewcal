@@ -3,7 +3,7 @@
 Read the schedule from a pdf file using LLM with OpenAI
 to extract flight details in a structured format.
 
-About 0.75 US cents per call in OpenAI API costs.
+As at nov 2023 about 0.75 US cents per call in OpenAI API costs.
 """
 
 import json
@@ -37,7 +37,7 @@ class OpenAISchedule:
 
     schedule_path: str
     extracted_schedule: str = ""
-    llm_model_name: str = "gpt-3.5-turbo"
+    llm_model_name: str = "gpt-4o-mini-2024-07-18"
 
     def __init__(
         self, schedule_path: str, to_json_file: str = "", to_icalendar_file: str = ""
