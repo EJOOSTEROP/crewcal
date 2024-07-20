@@ -146,7 +146,7 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
     "--nooverwrite",
     "-no",
     is_flag=True,
-    help="Don not convert if target folder already exists.",
+    help="Do not convert if target folder already exists.",
 )
 @click.argument("sourcefile")
 @click.argument("targetfolder")
