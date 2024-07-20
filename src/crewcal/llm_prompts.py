@@ -27,3 +27,15 @@ Each event contains the following items:
 
 Always include all items in your output even if they are empty.
 """
+
+
+template_hotel_contacts = """
+The provided document may contain a section with hotel information, base your answer on this section.
+
+The hotel section may contain information about one or more hotels.
+For each hotel, provide:
+- a suggested file name for the vcf file (vCard format).
+- the contact information of the hotel, in vCard format.
+
+If you cannot find any hotel contact information, return an empty list.
+"""
