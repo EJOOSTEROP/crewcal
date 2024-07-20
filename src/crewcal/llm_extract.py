@@ -15,11 +15,14 @@ import openai
 from dotenv import find_dotenv, load_dotenv
 from langchain.chat_models import ChatOpenAI
 from langchain.document_loaders import PyPDFLoader
+from langchain.output_parsers import PydanticOutputParser
 from langchain.output_parsers.openai_functions import JsonKeyOutputFunctionsParser
 from langchain.prompts import ChatPromptTemplate
+from langchain.schema.runnable import RunnablePassthrough
 from langchain.utils.openai_functions import convert_pydantic_to_openai_function
 
-from crewcal.llm_prompts import template_flight_schedule
+from crewcal.hotel import Hotels
+from crewcal.llm_prompts import template_flight_schedule, template_hotel_contacts
 from crewcal.schedule import Schedule
 
 _ = load_dotenv(find_dotenv())
@@ -37,10 +40,15 @@ class OpenAISchedule:
 
     schedule_path: str
     extracted_schedule: str = ""
+    extracted_hotels: Hotels
     llm_model_name: str = "gpt-4o-mini-2024-07-18"
 
     def __init__(
-        self, schedule_path: str, to_json_file: str = "", to_icalendar_file: str = ""
+        self,
+        schedule_path: str,
+        to_json_file: str = "",
+        to_icalendar_file: str = "",
+        to_hotel_folder: str = "",
     ) -> None:
         """Sets up the object using the provided schedule_path. Additionally, it allows for an optional to_file path where the schedule can be extracted.
 
@@ -64,6 +72,7 @@ class OpenAISchedule:
             schedule_path (str): The path to the schedule PDF file.
             to_json_file (str, optional): The path to the file where the schedule will be extracted.
             to_icalendar_file (str, optional): The path to the file where the iCalendar representation of the schedule will be saved.
+            to_hotel_folder (str, optional): The folder where hotel contact info cards will be saved.
 
         Returns:
             None
@@ -78,6 +87,9 @@ class OpenAISchedule:
                 self.extract()
             self.write_icalendar(to_icalendar_file)
 
+        if to_hotel_folder:
+            self.extract_hotels(Path(to_hotel_folder))
+
     def extract(self, to_file: str = "") -> None:
         """Uses LLM to extract event data from a schedule PDF file and optionally saves it to a JSON file.
 
@@ -90,7 +102,6 @@ class OpenAISchedule:
         full_sched_doc = self.read_schedule_pdf(self.schedule_path)
 
         if full_sched_doc:
-            # TODO: Can use gpt-4o instead; but app. 10x as expensive
             model = ChatOpenAI(model_name=self.llm_model_name, temperature=0)
             prompt = ChatPromptTemplate.from_messages(
                 [("system", template_flight_schedule), ("human", "{input}")]
@@ -126,6 +137,61 @@ class OpenAISchedule:
 
         if to_file:
             self.write_json(to_file)
+
+    def extract_hotels(self, to_folder: Path) -> None:
+        """Uses an LLM to extract hotel contact information from a flight schedule.
+
+        This is converted into vCard format by the same LLM. The results are saved into
+        vCard files.
+
+        Args:
+            to_folder (Path): Destination folder of the vCard files.
+
+        Returns:
+            None
+        """
+        full_sched_doc = self.read_schedule_pdf(self.schedule_path)
+
+        if full_sched_doc:
+            model = ChatOpenAI(model_name=self.llm_model_name, temperature=0)
+            hotel_parser = template_hotel_contacts
+            hotel_parser = PydanticOutputParser(pydantic_object=Hotels)
+            prompt = ChatPromptTemplate.from_template(
+                template_hotel_contacts + "\n\n"
+                "Document: {document}\n\n"
+                "{format_instructions}"
+            )
+
+            extraction_chain = (
+                {
+                    "document": RunnablePassthrough(),
+                    "format_instructions": lambda _: hotel_parser.get_format_instructions(),
+                }
+                | prompt
+                | model
+                | hotel_parser
+            )
+
+            logging.warning(
+                "WARNING - This script costs ~0.75 US cents per call in OpenAI API costs (GPT-3.5)."
+            )
+
+            from langchain.callbacks import get_openai_callback
+
+            with get_openai_callback() as cb:
+                self.extracted_hotels = extraction_chain.invoke(full_sched_doc)
+                if str(cb.total_cost) != "":
+                    logging.warning(
+                        "Actual OpenAI API cost in USD:" + str(cb.total_cost)
+                    )
+
+            if not to_folder.exists() and len(self.extracted_hotels.hotels) > 0:
+                to_folder.mkdir(parents=True, exist_ok=True)
+
+            for hotel in self.extracted_hotels.hotels:
+                destination_file = to_folder / hotel.vcf_file_name
+                with Path.open(destination_file, "w") as file:
+                    file.write(hotel.hotel_contact)
 
     def read_schedule_pdf(self, filepath: str = "") -> str:
         """Reads the contents of a schedule PDF file and returns as a document for an LLM input.
@@ -184,3 +250,4 @@ class OpenAISchedule:
 
 # TODO: Crew member names are captured, but not seniority and function.
 # TODO: Must be asynchronous somehow as OpenAI may take a while to respond.
+# TODO: Set all variables to Path in _init_ for OpenaiSchedule class (as opposed to str).

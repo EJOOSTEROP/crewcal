@@ -1,4 +1,5 @@
 """Command Line  Interface for Crewcal, a tool that extracts flight data from an airline crew schedule."""
+
 import pathlib
 
 import click
@@ -119,10 +120,12 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
         )
         source_path = source_path_modified
 
-    with Halo(
-        text="Extracting schedule, saving to iCalendar format.", spinner="dots"
-    ) if not to_json else Halo(
-        text="Extracting schedule, saving to crewcal json format.", spinner="dots"
+    with (
+        Halo(text="Extracting schedule, saving to iCalendar format.", spinner="dots")
+        if not to_json
+        else Halo(
+            text="Extracting schedule, saving to crewcal json format.", spinner="dots"
+        )
     ) as spinner:
         (
             OpenAISchedule(
@@ -138,8 +141,56 @@ def extract(sourcefile: str, targetfile: str, to_json: bool, overwrite: bool) ->
     return 0
 
 
-cli.add_command(convert)
+@click.command
+@click.option(
+    "--nooverwrite",
+    "-no",
+    is_flag=True,
+    help="Dont convert if target folder already exists.",
+)
+@click.argument("sourcefile")
+@click.argument("targetfolder")
+def hotels(sourcefile: str, targetfolder: str, nooverwrite: bool) -> int:
+    """Extract hotel contact information from pdf schedule.
+
+    A vCard file will be saved in the target folder for each hotel.
+
+    \b
+    Args:
+        SOURCEFILE (str): Path to pdf file.
+        TARGETFOLDER (str): Path to folder where contact files will be saved.
+    """  # noqa: D301
+    out_path = pathlib.Path(targetfolder)
+    source_path = pathlib.Path(sourcefile)
+
+    if not source_path.is_file() and not source_path.with_suffix(".pdf").is_file():
+        click.echo(f"User specified file '{source_path}' not found.")
+        return -1
+
+    if out_path.is_dir() and nooverwrite:
+        click.echo(
+            f"User specified target '{targetfolder}' exists and --nooverwrite flag set. Aborting extract."
+        )
+        return -1
+
+    if not source_path.is_file():
+        source_path_modified = source_path.with_suffix(".pdf")
+        click.echo(
+            f"File '{source_path}' not found. Using '{source_path_modified}' instead."
+        )
+        source_path = source_path_modified
+
+    with Halo(
+        text="Extracting hotel contacts, saving to vCard format.", spinner="dots"
+    ) as spinner:
+        (OpenAISchedule(schedule_path=str(source_path), to_hotel_folder=str(out_path)))
+        spinner.info(f"Extracted hotel information saved to {out_path}.")
+    return 0
+
+
 cli.add_command(extract)
+cli.add_command(convert)
+cli.add_command(hotels)
 
 if __name__ == "__main__":
     cli()
